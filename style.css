@@ -1,6 +1,9 @@
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
+    background-color: black;
+    color: white;
+    text-align: center;
   }
   
   #timer-setup, #timer-display {
@@ -9,16 +12,18 @@ body {
   
   label {
     display: inline-block;
-    width: 100px;
+    width: 150px;
+    text-align: right;
   }
   
   input {
     margin-bottom: 10px;
+    width: 200px;
   }
   
   button {
-    margin-left: 10px;
-    padding: 5px 10px;
+    margin-top: 10px;
+    padding: 5px 15px;
   }
   
   #countdown {
@@ -32,5 +37,9 @@ body {
   
   svg {
     margin-top: 20px;
+  }
+  
+  .bar {
+    transition: fill 0.3s;
   }
   

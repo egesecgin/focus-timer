@@ -20,9 +20,12 @@ function startTimer() {
     return;
   }
 
+  // Hide the app title after starting
+  document.getElementById('app-title').style.display = 'none';
+
   document.getElementById('timer-setup').style.display = 'none';
   document.getElementById('timer-display').style.display = 'block';
-  document.getElementById('current-task').innerText = `Task: ${task}`;
+  document.getElementById('current-task').innerText = `${task}`;
 
   const countdownElement = document.getElementById('countdown');
 
@@ -43,6 +46,9 @@ function startTimer() {
       // Reset UI
       document.getElementById('timer-setup').style.display = 'block';
       document.getElementById('timer-display').style.display = 'none';
+      // Show the app title again
+      document.getElementById('app-title').style.display = 'block';
+
       taskInput.value = '';
       durationInput.value = '5';
     }
@@ -52,12 +58,14 @@ function startTimer() {
 
 function addSession(task, duration) {
   totalSessions++;
+  const isBreak = task.trim().toLowerCase() === 'break';
+
   let session = sessions.find((s) => s.task === task);
   if (session) {
     session.duration += duration;
     session.count += 1;
   } else {
-    sessions.push({ task, duration, count: 1 });
+    sessions.push({ task, duration, count: 1, isBreak: isBreak });
   }
   updateStats();
 }
@@ -79,28 +87,36 @@ function saveData() {
 }
 
 function visualizeData() {
-  const svg = d3.select('body').selectAll('svg').data([null]);
-  svg.enter().append('svg').attr('width', 600).attr('height', 400);
+  const svgWidth = 600;
+  const svgHeight = 400;
 
-  const data = sessions.map((s) => ({ task: s.task, duration: s.duration }));
+  // Remove existing SVG if any
+  d3.select('#visualization').selectAll('*').remove();
+
+  const svg = d3.select('#visualization')
+    .append('svg')
+    .attr('width', svgWidth)
+    .attr('height', svgHeight);
+
+  const data = sessions.map((s) => ({ task: s.task, duration: s.duration, isBreak: s.isBreak }));
+
   const x = d3.scaleBand()
     .domain(data.map((d) => d.task))
-    .range([0, 600])
+    .range([0, svgWidth])
     .padding(0.1);
+
   const y = d3.scaleLinear()
     .domain([0, d3.max(data, (d) => d.duration)])
-    .range([400, 0]);
+    .range([svgHeight, 0]);
 
-  const bars = svg.selectAll('.bar').data(data);
-
-  bars.enter()
+  svg.selectAll('.bar')
+    .data(data)
+    .enter()
     .append('rect')
     .attr('class', 'bar')
     .attr('x', (d) => x(d.task))
     .attr('y', (d) => y(d.duration))
     .attr('width', x.bandwidth())
-    .attr('height', (d) => 400 - y(d.duration))
-    .attr('fill', 'steelblue');
-
-  bars.exit().remove();
+    .attr('height', (d) => svgHeight - y(d.duration))
+    .attr('fill', (d) => d.isBreak ? 'orange' : 'steelblue');
 }
