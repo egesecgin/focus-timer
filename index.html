@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Focus Timer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Focus Timer</h1>
+  <div id="timer-setup">
+    <label for="task">Task:</label>
+    <input type="text" id="task" placeholder="Enter your task">
+    <label for="duration">Duration (minutes):</label>
+    <input type="number" id="duration" value="5">
+    <button id="start-button">Start</button>
+  </div>
+
+  <div id="timer-display" style="display:none;">
+    <h2 id="current-task"></h2>
+    <p id="countdown"></p>
+  </div>
+
+  <button id="save-button">Save Data</button>
+
+  <div id="stats"></div>
+
+  <!-- D3.js -->
+  <script src="node_modules/d3/dist/d3.min.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
