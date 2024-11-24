@@ -7,27 +7,43 @@
 </head>
 <body>
   <h1 id="app-title">Focus Timer</h1>
-  <div id="timer-setup">
-    <label for="task">Task:</label>
-    <input type="text" id="task" placeholder="Enter your task">
-    <br>
-    <label for="duration">Duration (minutes):</label>
-    <input type="number" id="duration" value="5">
-    <br>
-    <button id="start-button">Start</button>
+
+  <!-- Navigation Buttons -->
+  <div id="navigation">
+    <button id="timer-nav">Timer</button>
+    <button id="visualization-nav">Visualization</button>
   </div>
 
-  <div id="timer-display" style="display:none;">
-    <h2 id="current-task"></h2>
-    <p id="countdown"></p>
+  <!-- Timer Page -->
+  <div id="timer-page">
+    <div id="timer-setup">
+      <label for="task">Task:</label>
+      <input type="text" id="task" placeholder="Enter your task">
+      <br>
+      <label for="duration">Duration (minutes):</label>
+      <input type="number" id="duration" value="5">
+      <br>
+      <button id="start-button">Start</button>
+    </div>
+
+    <div id="timer-display" style="display:none;">
+      <h2 id="current-task"></h2>
+      <p id="countdown"></p>
+    </div>
+
+    <button id="save-button">Save Data</button>
+
+    <div id="stats"></div>
   </div>
 
-  <button id="save-button">Save Data</button>
-
-  <div id="stats"></div>
-
-  <!-- Visualization Container -->
-  <div id="visualization"></div>
+  <!-- Visualization Page -->
+  <div id="visualization-page" style="display:none;">
+    <h2>Data Visualization</h2>
+    <label for="date-select">Select Date:</label>
+    <input type="date" id="date-select">
+    <button id="load-data-button">Load Data</button>
+    <div id="visualization"></div>
+  </div>
 
   <!-- D3.js -->
   <script src="node_modules/d3/dist/d3.min.js"></script>

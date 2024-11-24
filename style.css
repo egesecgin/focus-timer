@@ -6,14 +6,26 @@ body {
     text-align: center;
   }
   
-  #timer-setup, #timer-display {
+  #navigation {
     margin-bottom: 20px;
+  }
+  
+  #navigation button {
+    margin: 5px;
+    padding: 10px 20px;
+  }
+  
+  #timer-setup, #timer-display, #visualization-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   label {
     display: inline-block;
     width: 150px;
     text-align: right;
+    margin-right: 10px;
   }
   
   input {
@@ -41,5 +53,13 @@ body {
   
   .bar {
     transition: fill 0.3s;
+  }
+  
+  #visualization-page {
+    margin-top: 20px;
+  }
+  
+  #visualization {
+    margin-top: 20px;
   }
   

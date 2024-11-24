@@ -10,7 +10,7 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false, // For simplicity, disable context isolation
+      contextIsolation: false, // For simplicity
     },
   });
 
@@ -23,5 +23,13 @@ app.whenReady().then(createWindow);
 ipcMain.on('save-data', (event, data) => {
   const date = new Date().toISOString().split('T')[0];
   const filename = `data_${date}.json`;
-  fs.writeFileSync(filename, JSON.stringify(data, null, 2));
+  const dataDir = path.join(__dirname, 'data');
+
+  // Ensure the data directory exists
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir);
+  }
+
+  const filePath = path.join(dataDir, filename);
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 });
